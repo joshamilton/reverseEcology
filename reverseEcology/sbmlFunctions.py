@@ -12,7 +12,6 @@
 import cobra
 import cobra.core.Formula
 import collections
-import csv
 import fileinput
 import numpy as np
 import os
@@ -21,6 +20,9 @@ import re
 
 # Import custom Python modules 
 import metadataFunctions as mf
+
+# Define path for data included in the package
+dataPath = os.path.dirname(os.path.abspath(__file__))+'/packageData'
 
 ################################################################################
     
@@ -31,7 +33,7 @@ import metadataFunctions as mf
 # directory. Summary statistics about each graph are written in the
 # summaryStatsDir as well.
 
-def dirListToAdjacencyList(dirList, externalDataDir, processedDataDir, summaryStatsDir):
+def dirListToAdjacencyList(dirList, processedDataDir, summaryStatsDir):
 
     numSubDir = len(dirList)
 
@@ -190,7 +192,7 @@ def getModelStats(model):
 # folder. Also returns a summary of the model sizes, in the 'summaryStatsDir'
 # folder.
 
-def processSBMLforRE(rawModelDir, processedDataDir, summaryStatsDir, externalDataDir):
+def processSBMLforRE(rawModelDir, processedDataDir, summaryStatsDir):
 
     # # Check that folders exist and create them if necessary
     if not os.path.exists(processedDataDir):
@@ -206,12 +208,12 @@ def processSBMLforRE(rawModelDir, processedDataDir, summaryStatsDir, externalDat
     metabFormDict = {}
     metabChargeDict = {}
     
-    with open(externalDataDir+'/newFormulaDict.txt') as inFile:
+    with open(dataPath+'/newFormulaDict.txt') as inFile:
         for line in inFile:
            (key, value) = line.split('\t')
            metabFormDict[key] = value
            
-    with open(externalDataDir+'/newChargeDict.txt') as inFile:
+    with open(dataPath+'/newChargeDict.txt') as inFile:
         for line in inFile:
            (key, value) = line.split('\t')
            metabChargeDict[key] = value
@@ -404,7 +406,7 @@ def processSBMLforRE(rawModelDir, processedDataDir, summaryStatsDir, externalDat
 # proton or functional group transfer. Then, we remove additional singletom
 # metabolites (protons and the like.)
 
-def pruneCurrencyMetabs(modelDir, summaryStatsDir, singletonFile, pairFile, aminoFile):
+def pruneCurrencyMetabs(modelDir, summaryStatsDir):
     
     # Import the list of models
     dirList = mf.getDirList(modelDir)
@@ -431,7 +433,7 @@ def pruneCurrencyMetabs(modelDir, summaryStatsDir, singletonFile, pairFile, amin
                     
     # Read in the list of bad metabolite pairs
         pairMetabList = []
-        with open(pairFile) as myFile:
+        with open(dataPath+'/currencyRemovePairs.txt') as myFile:
             for line in myFile:
                 pairMetabList.append(line.strip().split('\t'))
     
@@ -451,7 +453,7 @@ def pruneCurrencyMetabs(modelDir, summaryStatsDir, singletonFile, pairFile, amin
     
     # Read in the list of aminotransfer metabolite pairs
         pairAminoList = []
-        with open(aminoFile) as myFile:
+        with open(dataPath+'/currencyAminoPairs.txt') as myFile:
             for line in myFile:
                 pairAminoList.append(line.strip().split('\t'))
     
@@ -470,7 +472,7 @@ def pruneCurrencyMetabs(modelDir, summaryStatsDir, singletonFile, pairFile, amin
     #############################
     
     # Read in the list of bad metabolite singletons
-        with open(singletonFile) as myFile:
+        with open(dataPath+'/currencyRemoveSingletons.txt') as myFile:
             singletonMetabList = myFile.read().splitlines()
     
     # Remove all bad metabolites

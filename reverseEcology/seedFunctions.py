@@ -10,14 +10,11 @@
 ################################################################################ 
 
 # Import Python packages.
-from collections import Counter
-import csv
 import os
-import networkx as nx
-import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
-import scipy.cluster.hierarchy as sch
+
+# Define path for data included in the package
+dataPath = os.path.dirname(os.path.abspath(__file__))+'/packageData'
 
 ################################################################################ 
 
@@ -29,7 +26,7 @@ import scipy.cluster.hierarchy as sch
 # Columns: graphs
 # Entries: unweighted seed set values
 
-def consolidateSeeds(dirList, externalDataDir, processedDataDir, summaryStatsDir):
+def consolidateSeeds(dirList, processedDataDir, summaryStatsDir):
 
     # Check that output directory exists
     if not os.path.exists(summaryStatsDir):
@@ -56,7 +53,7 @@ def consolidateSeeds(dirList, externalDataDir, processedDataDir, summaryStatsDir
     # Append a new column containing common names associated with metabolite IDs.
     # The file metabMap.csv was created manually from the seed database, and should
     # be updated to reflect the particulars of your data set.
-    namesDF = pd.read_csv(externalDataDir+'/'+'metabMap.csv', names=['Metabolite','CommonName'])
+    namesDF = pd.read_csv(dataPath+'/metabMap.csv', names=['Metabolite','CommonName'])
     revEcolMatrixDF = pd.merge(revEcolMatrixDF, namesDF, how='inner', on="Metabolite")
     
     # Rearrange the order of the columns so that the common name is in front

@@ -13,12 +13,14 @@
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
 import re
 
 import csv
 import os
 import itertools
+
+# Define path for data included in the package
+dataPath = os.path.dirname(os.path.abspath(__file__))+'/packageData'
 
 ################################################################################
 
@@ -378,7 +380,7 @@ def reduceToLargeComponent(dirList, processedDataDir, summaryStatsDir):
 # for each seed set. Additional statistics on the reduced graph and digraph
 # are also computed.
 
-def computeSeedSets(dirList, externalDataDir, processedDataDir, seedDir):
+def computeSeedSets(dirList, processedDataDir, seedDir):
 
     # Create lists to store seed sets
     # seedSetList is a list of lists. Each outer list contains all the seed sets
@@ -447,7 +449,7 @@ def computeSeedSets(dirList, externalDataDir, processedDataDir, seedDir):
         # graph.
 
         # First read metabMap.csv in as a dictionary
-        with open(externalDataDir+'/'+'metabMap.csv', mode='rU') as inFile:
+        with open(dataPath+'/metabMap.csv', mode='rU') as inFile:
             reader = csv.reader(inFile)
             namesDict = dict((rows[0],rows[1]) for rows in reader)
 

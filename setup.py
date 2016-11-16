@@ -5,9 +5,9 @@ def readme():
         return f.read()
     
 setup(name='reverseEcology',
-      version='0.1',
+      version='0.5',
       description='Reverse ecology analysis of metabolic network reconstructions',
-       classifiers=[
+      classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2.7',
@@ -17,4 +17,11 @@ setup(name='reverseEcology',
       author_email='joshamilton@gmail.com',
       license='MIT',
       packages=find_packages(),
+      install_requires=[
+          'cobra>=0.5.4',
+          'matplotlib',
+          'networkx>=1.11',
+          'numpy',
+          'pandas',
+          ],
       include_package_data=True)

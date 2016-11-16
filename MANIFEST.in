@@ -1,2 +1,10 @@
 include README.md
 include LICENSE
+
+# Include data files
+include reverseEcology/packageData/currencyAminoPairs.txt
+include reverseEcology/packageData/currencyRemovePairs.txt
+include reverseEcology/packageData/currencyRemoveSingletons.txt
+include reverseEcology/packageData/metabMap.csv
+include reverseEcology/packageData/newChargeDict.txt
+include reverseEcology/packageData/newFormulaDict.txt
