@@ -5,10 +5,10 @@ def readme():
         return f.read()
     
 setup(name='reverseEcology',
-      version='0.5',
+      version='1.0.0',
       description='Reverse ecology analysis of metabolic network reconstructions',
       classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 7 - Inactive',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2.7',
       ],
